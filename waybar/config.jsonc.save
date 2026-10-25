@@ -1,0 +1,88 @@
+{
+    "layer": "top",
+    "position": "top",
+    "margin": "0 8 0 8",
+    "height": 34,
+    "spacing": 6,
+    "modules-left": [
+        "sway/workspaces",
+        "cpu",
+        "memory"
+    ],
+
+    "modules-center": [
+        "clock"
+    ],
+
+    "modules-right": [
+        "network",
+        "pulseaudio",
+        "battery"
+    ],
+
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "format": "{name}"
+    },
+
+    "cpu": {
+        "format": "CPU {usage}%",
+        "interval": 2
+    },
+
+    "memory": {
+        "format": "RAM {percentage}%",
+        "interval": 2
+    },
+
+    "clock": {
+        "format": "{:%H:%M}",
+        "format-alt": "{:%A, %d %B %Y}",
+        "tooltip": false
+    },
+
+"network": {
+    "format-wifi": "WiFi {signalStrength}%",
+    "format-ethernet": "LAN {ipaddr}",
+    "format-disconnected": "Offline",
+    "tooltip-format": "{ifname} → {essid}",
+    "interval": 5,
+    "on-click": "nm-connection-editor"
+},
+
+    "pulseaudio": {
+        "format": "VOL {volume}%",
+        "format-muted": "Muted",
+        "on-click": "pavucontrol",
+        "tooltip-format": "Volume: {volume}%"
+    },
+
+"battery": {
+    "interval": 10,
+
+    "format": "{icon}  {capacity}%",
+    "format-charging": "󰂄  {capacity}%",
+    "format-plugged": "󰚥  {capacity}%",
+    "format-full": "󰁹  {capacity}%",
+
+    "format-icons": [
+        "󰁺",
+        "󰁻",
+        "󰁼",
+        "󰁽",
+        "󰁾",
+        "󰁿",
+        "󰂀",
+        "󰂁",
+        "󰂂",
+        "󰁹"
+    ],
+
+    "states": {
+        "warning": 30,
+        "critical": 15
+    }
+}
+
+}
