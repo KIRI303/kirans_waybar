@@ -6,10 +6,9 @@
 
 window#waybar {
     background: rgba(8, 8, 8, 0.92);
-    color: #e6e6e6;   
+    color: #e6e6e6;
     border-radius: 10px;
     margin: 8px 8px 0px 8px;
-    margin-top : 8px;
 }
 
 #workspaces {
@@ -27,7 +26,8 @@ window#waybar {
     box-shadow: none;
 }
 
-#workspaces button.active {
+#workspaces button.active,
+#workspaces button.focused {
     color: #ffffff;
     background: #303542;
 }
@@ -37,10 +37,6 @@ window#waybar {
     background: #232731;
 }
 
-#workspaces button.focused {
-    color: #ffffff;
-    background: #303542;
-}
 
 #workspaces button.urgent {
     color: #ffffff;
@@ -57,12 +53,6 @@ window#waybar {
     padding: 0 12px;
     background: #1a1d24;
     border-radius: 8px;
-}
-
-#cpu,
-#memory,
-#clock {
-    font-family: "JetBrains Mono", monospace;
 }
 
 #clock {
