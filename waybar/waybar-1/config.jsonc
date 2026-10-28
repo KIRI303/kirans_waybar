@@ -1,0 +1,69 @@
+{
+  "layer": "top",
+  "width": 1200,
+  "position": "top",
+  "margin": "8 8 0 8",
+  "height": 34,
+  "spacing": 6,
+
+  "modules-left": ["hyprland/workspaces", "cpu", "memory"],
+
+  "modules-center": ["clock"],
+
+  "modules-right": ["network", "pulseaudio", "battery", "tray"],
+
+  "hyprland/workspaces": {
+    "disable-scroll": true,
+    "format": "{name}",
+  },
+
+  "cpu": {
+    "format": " {usage}%",
+    "interval": 2,
+  },
+
+  "memory": {
+    "format": "󰍛 {percentage}%",
+    "interval": 2,
+  },
+
+  "clock": {
+    "format": "{:%H:%M}",
+    "format-alt": "{:%A, %d %B %Y}",
+    "tooltip": false,
+  },
+
+  "network": {
+    "format-wifi": "󰤨  {signalStrength}%",
+    "format-ethernet": "󰈀  {ipaddr}",
+    "format-disconnected": "󰤭  Disconnected",
+    "tooltip-format": "{ifname} → {essid}",
+    "interval": 5,
+  },
+
+  "pulseaudio": {
+    "format": "{icon}  {volume}%",
+    "format-muted": "󰝟  Muted",
+    "format-icons": {
+      "default": ["󰕿", "󰖀", "󰕾"],
+    },
+    "on-click": "pavucontrol",
+    "tooltip-format": "Volume: {volume}%",
+  },
+
+  "battery": {
+    "interval": 10,
+
+    "format": "{icon}  {capacity}%",
+    "format-charging": "󰂄  {capacity}%",
+    "format-plugged": "󰚥  {capacity}%",
+    "format-full": "󰁹  {capacity}%",
+
+    "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+
+    "states": {
+      "warning": 30,
+      "critical": 15,
+    },
+  },
+}

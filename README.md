@@ -1,167 +1,259 @@
-# Waybar
+# My Dotfiles
 
-My personal Waybar configuration for **Hyprland on Arch Linux**, featuring a minimal dark theme, rounded modules, Nerd Font icons, and essential system information.
+My personal Linux dotfiles, featuring two versions of my customized Waybar setup for Hyprland on Arch Linux.
 
 ## Screenshots
 
-![Waybar](screenshots/waybar.png)
+### Waybar-1 — Original Setup
 
-![Waybar 2](screenshots/waybar2.png)
+![Waybar-1](screenshots/waybar.png)
 
-## Features
+![Waybar-2](screenshots/waybar2.png)
 
-- Hyprland workspace indicators
-- CPU and memory usage
-- Clock with an alternate date format
-- Wi-Fi signal strength and network status
-- Audio volume and mute status
-- Battery percentage and charging indicators
-- System tray support
-- Minimal dark theme with rounded corners
-- JetBrainsMono Nerd Font styling
+### Waybar-2 — Updated Setup
+
+![Waybar-2 — Additional View](screenshots/waybar2.1.png)
+
+![Waybar-2 — Additional View](screenshots/waybar2.2.png)
 
 ## Repository Structure
 
 ```text
-waybar/
-├── config.jsonc
-├── style.css
-└── README.md
+dotfiles/
+├── README.md
+├── screenshots/
+│   ├── waybar.png
+│   ├── waybar2.png
+│   ├── waybar2.1.png
+│   └── waybar2.2.png
+└── waybar/
+    ├── waybar-1/
+    │   ├── config.jsonc
+    │   └── style.css
+    └── waybar-2/
+        ├── config.jsonc
+        └── style.css
 ```
 
-| File           | Purpose                                                       |
-| -------------- | ------------------------------------------------------------- |
-| `config.jsonc` | Module layout, formatting, update intervals, and interactions |
-| `style.css`    | Fonts, colors, spacing, borders, and module appearance        |
-| `README.md`    | Installation and configuration guide                          |
+## Waybar-1 — Original Configuration
 
-## Requirements
+Features:
 
-- Arch Linux
-- Hyprland
-- Waybar
-- JetBrainsMono Nerd Font
-- NetworkManager, with `nm-applet` for the network tray menu
-- `pavucontrol` for the audio module's click action
+- Hyprland workspace indicators
+- CPU usage and memory usage
+- Clock with alternate date display
+- Network signal and connection status
+- Volume indicator with graphical audio mixer shortcut
+- Battery status and charging indicators
+- System tray
+- Custom Arch Linux icon
+- Japanese quote
+- Dark theme with rounded modules
+- Customized fonts, spacing, and colors
+
+## Waybar-2 — Updated Configuration
+
+Waybar-2 builds on the original design with additional music-player integration.
+
+Additional features:
+
+- Displays the current song title and artist
+- Shows a different indicator when music is paused
+- Left-click to play or pause
+- Middle-click to play the previous track
+- Right-click to play the next track
+- Hover tooltip for music information
+- Limits track-title length to keep the bar compact
+- Lavender accent color for the music module
+- Retains the original system monitoring and status modules
 
 ## Installation
 
+These instructions assume you have cloned this repository to `~/dotfiles`.
+
 ### 1. Install the required packages
 
-```bash
-sudo pacman -S waybar ttf-jetbrains-mono-nerd networkmanager network-manager-applet pavucontrol
-```
-
-Ensure NetworkManager is enabled if you use it to manage Wi-Fi:
+On Arch Linux:
 
 ```bash
-sudo systemctl enable --now NetworkManager
+sudo pacman -S waybar git playerctl pavucontrol
 ```
+
+Packages:
+
+- `waybar` — status bar
+- `git` — version control
+- `playerctl` — controls compatible media players and reads metadata
+- `pavucontrol` — graphical audio mixer
+
+You will also need the fonts used in the configuration if they are not already installed.
 
 ### 2. Clone the repository
 
+If you have not cloned the repository yet:
+
 ```bash
-git clone https://github.com/KIRI303/waybar.git
-cd waybar
+git clone https://github.com/KIRI303/dotfiles.git
+cd dotfiles
 ```
 
-### 3. Install the configuration
+If the repository already exists on your computer:
 
-Back up any existing Waybar configuration first:
+```bash
+cd ~/dotfiles
+git pull
+```
+
+### 3. Back up your current Waybar configuration
+
+Before switching versions, back up your current configuration:
+
+```bash
+mkdir -p ~/.config/waybar-backup
+cp -a ~/.config/waybar/. ~/.config/waybar-backup/
+```
+
+This allows you to restore your previous setup if needed.
+
+### 4. Install Waybar-1
+
+Copy the original configuration into Waybar's active configuration directory:
 
 ```bash
 mkdir -p ~/.config/waybar
-
-[ ! -f ~/.config/waybar/config.jsonc ] || \
-    cp ~/.config/waybar/config.jsonc ~/.config/waybar/config.jsonc.bak
-
-[ ! -f ~/.config/waybar/style.css ] || \
-    cp ~/.config/waybar/style.css ~/.config/waybar/style.css.bak
+cp -r ~/dotfiles/waybar/waybar-1/. ~/.config/waybar/
 ```
 
-Copy the configuration files:
+### 5. Install Waybar-2
+
+To switch to the updated configuration instead:
 
 ```bash
-cp config.jsonc style.css ~/.config/waybar/
+mkdir -p ~/.config/waybar
+cp -r ~/dotfiles/waybar/waybar-2/. ~/.config/waybar/
 ```
 
-### 4. Configure Hyprland
+**Important:** Both versions use `~/.config/waybar/` as the active configuration directory. Install one version at a time; your saved versions in the repository remain separate.
 
-Add the following to your Hyprland configuration if Waybar is not already started automatically:
-
-```ini
-exec-once = waybar
-```
-
-Avoid adding a duplicate startup entry if Waybar is already launched by another script or service.
-
-### 5. Start Waybar
-
-```bash
-waybar
-```
-
-To restart an existing Waybar process after making changes:
+### 6. Restart Waybar
 
 ```bash
 pkill waybar
 waybar &
 ```
 
-## How It Works
+If Waybar fails to start, run `waybar` directly in the terminal to inspect any configuration errors.
 
-### `config.jsonc`
+## Music Player Configuration
 
-Waybar uses JSONC, a JSON-compatible format that supports comments, to configure the bar's behavior and layout.
+Waybar-2 uses the built-in MPRIS module. **Tauon Music Box is optional.** You can use another compatible media player as long as it exposes MPRIS metadata and supports the required playback controls.
 
-The main options define:
+Examples include:
 
-- `position` and `height` — where the bar appears and how tall it is.
-- `modules-left`, `modules-center`, and `modules-right` — the order and placement of modules.
-- Module-specific settings — formatting, update intervals, and click actions.
+- Tauon Music Box
+- VLC
+- Spotify
+- Firefox or Chromium media playback, when MPRIS integration is available
+- Other MPRIS-compatible players
 
-For example:
+### 1. Check whether your player is detected
 
-```jsonc
-"cpu": {
-    "format": " {usage}%",
-    "interval": 2
-}
+Open your preferred music player and start playing a track. Then run:
+
+```bash
+playerctl -l
 ```
 
-This displays CPU utilization and refreshes the module every two seconds.
+This lists the media players detected by `playerctl`.
 
-The workspace module should use `hyprland/workspaces` for Hyprland rather than a compositor-specific module for another desktop environment.
+Check the current track's metadata:
 
-### `style.css`
+```bash
+playerctl metadata --format '{{title}} — {{artist}}'
+```
 
-The stylesheet controls the visual appearance of the bar:
+If your player is detected and the command displays the current track information, it should be usable with Waybar's MPRIS module.
 
-- Font family, size, and weight
-- Background and text colors
-- Padding, margins, and rounded corners
-- Active, focused, hovered, and urgent workspace states
-- Battery charging and warning colors
+### 2. Configure Waybar for your preferred player
 
-The configuration and stylesheet are separate, making it possible to change the appearance without changing module behavior.
+Open the active Waybar configuration:
+
+```bash
+nano ~/.config/waybar/config.jsonc
+```
+
+Find the `mpris` section. For example, to use VLC:
+
+```jsonc
+"mpris": {
+    "player": "vlc",
+    "format": "♫ {title} — {artist}",
+    "format-paused": "Ⅱ {title} — {artist}",
+    "max-length": 35,
+    "tooltip": true,
+    "on-click": "play-pause",
+    "on-click-middle": "previous",
+    "on-click-right": "next"
+},
+```
+
+Replace `"vlc"` with the player name detected by `playerctl -l`. For example, use `"spotify"` if that is the detected name for Spotify.
+
+**Note:** The player name can differ from the application's display name. Use the name reported by your system.
+
+### 3. Automatically follow the active player
+
+If you want Waybar to follow the active compatible media player rather than a specific application, use `playerctld`.
+
+Start the daemon:
+
+```bash
+playerctld daemon
+```
+
+Then change the player setting in the MPRIS configuration to:
+
+```jsonc
+"player": "playerctld",
+```
+
+This allows `playerctl` to track the most recently active player. If you prefer to display only one specific player, keep its name in the configuration instead.
+
+### 4. Browser playback
+
+Browser media playback may work when the browser exposes MPRIS metadata. If your browser does not appear in `playerctl -l`, check whether its media-session integration is available and enabled.
+
+### 5. Restart and test
+
+```bash
+pkill waybar
+waybar &
+```
+
+Start or resume playback and check that the song title and artist appear. If the module remains empty, test `playerctl metadata` first to determine whether the player is exposing its metadata correctly.
 
 ## Customization
 
-1. Edit `config.jsonc` to add, remove, or rearrange modules.
-2. Change each module's `format` property to adjust its displayed text and icons.
-3. Edit `style.css` to customize the theme, typography, spacing, and borders.
-4. Restart Waybar to apply changes.
+- Edit `config.jsonc` to change modules, displayed information, and click actions.
+- Edit `style.css` to customize colors, spacing, fonts, and rounded corners.
+- Modify the MPRIS configuration to select a different compatible music player.
+- Add screenshots to the `screenshots/` directory and update the image paths in this README when changing filenames.
 
-## Troubleshooting
+## Updating the Repository
 
-**Waybar does not start:** Run `waybar` in a terminal to inspect errors.
+After modifying configurations, documentation, or screenshots:
 
-**Icons appear incorrectly:** Verify that JetBrainsMono Nerd Font is installed and that the configured font family is available.
+```bash
+cd ~/dotfiles
+git add README.md waybar/ screenshots/
+git commit -m "Update Waybar configurations and screenshots"
+git push
+```
 
-**The Wi-Fi tray icon is missing:** Check that `nm-applet` is running and that `tray` is included in the Waybar configuration.
+## Notes
 
-**Workspace indicators do not work:** Verify that the configuration uses `hyprland/workspaces` and that Waybar is running inside a Hyprland session.
-
-## License
-
-Use and modify this configuration to suit your own setup.
+- The repository stores both Waybar configurations separately.
+- Copying a version into `~/.config/waybar/` makes it the active configuration.
+- Music controls require a compatible player and available MPRIS metadata.
+- Fonts used by the configurations must be installed separately if they are not already available.
+- Back up existing configuration files before replacing them.
