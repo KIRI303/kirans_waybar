@@ -1,6 +1,6 @@
-# My Dotfiles
+# My waybar configs
 
-My personal Linux dotfiles, featuring two versions of my customized Waybar setup for Hyprland on Arch Linux.
+My personal Linux conifg, featuring two versions of my customized Waybar setup for Hyprland on Arch Linux.
 
 ## Screenshots
 
@@ -35,7 +35,7 @@ dotfiles/
         └── style.css
 ```
 
-## Waybar-1 — Original Configuration
+## Waybar-1 — Previous Configuration
 
 Features:
 
@@ -46,8 +46,6 @@ Features:
 - Volume indicator with graphical audio mixer shortcut
 - Battery status and charging indicators
 - System tray
-- Custom Arch Linux icon
-- Japanese quote
 - Dark theme with rounded modules
 - Customized fonts, spacing, and colors
 
@@ -59,9 +57,8 @@ Additional features:
 
 - Displays the current song title and artist
 - Shows a different indicator when music is paused
-- Left-click to play or pause
-- Middle-click to play the previous track
-- Right-click to play the next track
+- Custom Arch Linux icon
+- Japanese quote
 - Hover tooltip for music information
 - Limits track-title length to keep the bar compact
 - Lavender accent color for the music module
